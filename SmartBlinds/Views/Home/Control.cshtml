@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Control";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Control Your Blinds</h1>
+        <br />
+        <button type="button" onclick="openB()" class="btn btn-primary">Open Blinds</button>
+        <button type="button" onclick="closeB()" class="btn btn-primary">Close Blinds</button>
+        <button type="button" onclick="stop()" class="btn btn-primary">Stop</button>
+
+    </div>
+
+<script type="text/javascript">
+    
+
+    
+    function stop() {
+        axios({
+            method: 'put',
+            url: '/home/sendCommand',
+            params: {
+                estop: true
+            }
+        }).then((response) => {
+            
+        })
+    }
+
+     function closeB() {
+        axios({
+            method: 'put',
+            url: '/home/sendCommand',
+            params: {
+                close: true
+            }
+        }).then((response) => {
+            
+        })
+    }
+
+    function openB() {
+        axios({
+            method: 'put',
+            url: '/home/sendCommand',
+            params: {
+                open: true
+            }
+        }).then((response) => {
+            
+        })
+    }
+</script>
+
