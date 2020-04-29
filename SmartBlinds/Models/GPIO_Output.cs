@@ -31,6 +31,7 @@ namespace SmartBlinds.Models
             
             controller.Write(12, PinValue.Low);
             Thread.Sleep(500);
+            controller.Write(12, PinValue.High);
             Debug.Print("open");
             Console.WriteLine("open");
         }
