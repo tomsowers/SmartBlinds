@@ -11,12 +11,24 @@ namespace SmartBlinds.Models
     public static class GPIO_Output
     {
         static GpioController controller = new GpioController();
-        
+        public static bool setup = false;
 
+        public static void SetupPins()
+        {
+            controller.OpenPin(12, PinMode.Output);
+            controller.OpenPin(16, PinMode.Output);
+            controller.OpenPin(20, PinMode.Output);
+            setup = true;
+        }
         public static void SendOpen()
         {
             //set pin to high
-            controller.OpenPin(12, PinMode.Output);
+            if(setup == false)
+            {
+                SetupPins();
+            }
+
+            
             controller.Write(12, PinValue.Low);
             Thread.Sleep(500);
             Debug.Print("open");
@@ -25,7 +37,10 @@ namespace SmartBlinds.Models
         public static void SendClose()
         {
             //set pin to high
-            controller.OpenPin(16, PinMode.Output);
+            if (setup == false)
+            {
+                SetupPins();
+            }
             controller.Write(16, PinValue.Low);
             Thread.Sleep(500);
             controller.Write(16, PinValue.High);
@@ -35,7 +50,10 @@ namespace SmartBlinds.Models
         public static void SendStop()
         {
             //set pin to high
-            controller.OpenPin(20, PinMode.Output);
+            if (setup == false)
+            {
+                SetupPins();
+            }
             controller.Write(20, PinValue.Low);
             Thread.Sleep(500);
             controller.Write(20, PinValue.High);
@@ -46,6 +64,10 @@ namespace SmartBlinds.Models
         {
             //get pin
             int light = 0;
+            if (setup == false)
+            {
+                SetupPins();
+            }
             /*
             controller.OpenPin(21, PinMode.Output);
             PinValue pinValue =  controller.Read(21);
