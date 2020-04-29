@@ -16,8 +16,8 @@ namespace SmartBlinds.Models
         public static void SendOpen()
         {
             //set pin to high
-            controller.OpenPin(26, PinMode.Output);
-            controller.Write(26, PinValue.Low);
+            controller.OpenPin(12, PinMode.Output);
+            controller.Write(12, PinValue.Low);
             Thread.Sleep(500);
             Debug.Print("open");
             Console.WriteLine("open");
@@ -28,6 +28,7 @@ namespace SmartBlinds.Models
             controller.OpenPin(16, PinMode.Output);
             controller.Write(16, PinValue.Low);
             Thread.Sleep(500);
+            controller.Write(16, PinValue.High);
             Debug.Print("Close");
             Console.WriteLine("close");
         }
@@ -37,6 +38,7 @@ namespace SmartBlinds.Models
             controller.OpenPin(20, PinMode.Output);
             controller.Write(20, PinValue.Low);
             Thread.Sleep(500);
+            controller.Write(20, PinValue.High);
             Debug.Print("stop");
             Console.WriteLine("stop");
         }
