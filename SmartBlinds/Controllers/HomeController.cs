@@ -31,7 +31,7 @@ namespace SmartBlinds.Controllers
         {
             //will want to sync time for every request to keep the clock updated
             //serial.UpdateControlMode();
-            serial.Test();
+            serial.UpdateControlMode();
             return Content("Test");
         }
 
