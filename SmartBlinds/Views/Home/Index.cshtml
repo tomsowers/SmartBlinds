@@ -62,8 +62,7 @@
             method: 'put',
             url: '/home/changeControl',
             params: {
-                timeControl: true,
-                lightControl: false,
+                controlMode: 1,
                 openTime: open,
                 closeTime: close
             }
@@ -75,18 +74,17 @@
     function lightSubmit() {
         var day = document.getElementById('dayOpen').checked;
         var night = document.getElementById('nightOpen').checked;
-        var mode = 0;
+        var mode = 2;
         if (night == true) {
-            mode = 1;
+            mode = 3;
         }
 
         axios({
             method: 'put',
             url: '/home/changeControl',
             params: {
-                timeControl: false,
-                lightControl: true,
-                lightControlModel: mode
+                controlMode: mode
+                
             }
         }).then((response) => {
             
@@ -99,24 +97,13 @@
             method: 'put',
             url: '/home/changeControl',
             params: {
-                timeControl: false,
-                lightControl: false
+                controlMode: 0
             }
         }).then((response) => {
             
         })
     }
 
-    function syncTime() {
-        axios({
-            method: 'put',
-            url: '/home/changeControl',
-            params: {
-                
-            }
-        }).then((response) => {
-            
-        })
-    }
+    
 </script>
 

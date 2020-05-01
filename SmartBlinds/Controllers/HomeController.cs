@@ -45,6 +45,15 @@ namespace SmartBlinds.Controllers
             return Content("Test");
         }
 
+        [Route("home/getMode")]
+        [HttpGet]
+        public IActionResult getMode()
+        {
+            SerialCon serialCon = SQLConnection.GetLightMode();
+
+            return Json(serialCon);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

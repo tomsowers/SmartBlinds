@@ -2,55 +2,82 @@
 @{
     ViewData["Title"] = "Control";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   
 }
-
-    <div class="text-center">
-        <h1 class="display-4">Control Your Blinds</h1>
+    <body onload="lightMode()">
+        <h1 class="display-4">Control Your Shades</h1>
+        <p id="lightNote">Light Control Mode Enabled, Please Disable Light Control For Additional Control Options</p>
         <br />
-        <button type="button" onclick="openB()" class="btn btn-primary">Open Blinds</button>
-        <button type="button" onclick="closeB()" class="btn btn-primary">Close Blinds</button>
-        <button type="button" onclick="stop()" class="btn btn-primary">Stop</button>
+        <br />
+        <div class="row" >
 
-    </div>
+            <div class="col-lg-4 order-md-2 text-center">
+                <p>Control Both Shades:</p>
+                <button id="oB" type="button" onclick="control(1)" class="btn btn-primary">Open</button>
+                <button id="cB" type="button" onclick="control(0)" class="btn btn-primary">Close</button>
+                <button id="sB" type="button" onclick="control(2)" class="btn btn-primary">Stop</button>
 
-<script type="text/javascript">
-    
+            </div>
+            <div class="col-lg-4 order-md-1 text-center">
+                <p>Control Left Shade</p>
+                <button id="oL" type="button" onclick="control(3)" class="btn btn-primary">Open Left</button>
+                <button id="cL" type="button" onclick="control(5)" class="btn btn-primary">Close Left</button>
+                <button id="sL" type="button" onclick="control(7)" class="btn btn-primary">Stop Left</button>
+            </div>
+            <div class="col-lg-4 order-md-3 text-center">
+                <p>Control Right Shade</p>
+                <button id="oR" type="button" onclick="control(4)" class="btn btn-primary">Open Right</button>
+                <button id="cR" type="button" onclick="control(6)" class="btn btn-primary">Close Right</button>
+                <button id="sR" type="button" onclick="control(8)" class="btn btn-primary">Stop Right</button>
+            </div>
+        </div>
 
-    
-    function stop() {
-        axios({
-            method: 'put',
-            url: '/home/sendCommand',
-            params: {
-                estop: true
+
+        <script type="text/javascript">
+
+            function lightMode() {
+                
+                axios({
+                    method: 'get',
+                    url: '/home/getMode'
+
+                }).then((response) => {
+                    if (response.data.controlMode < 2) {
+                        document.getElementById("oB").style.display = "inline";
+                        document.getElementById("cB").style.display = "inline";
+                        document.getElementById("oL").style.display = "inline";
+                        document.getElementById("cL").style.display = "inline";
+                        document.getElementById("oR").style.display = "inline";
+                        document.getElementById("cR").style.display = "inline";
+                        document.getElementById("lightNote").style.display = "none";
+                    }
+                    else {
+                        document.getElementById("oB").style.display = "none";
+                        document.getElementById("cB").style.display = "none";
+                        document.getElementById("oL").style.display = "none";
+                        document.getElementById("cL").style.display = "none";
+                        document.getElementById("oR").style.display = "none";
+                        document.getElementById("cR").style.display = "none";
+                        document.getElementById("lightNote").style.display = "inline";
+                    }
+
+                })
             }
-        }).then((response) => {
-            
-        })
-    }
 
-     function closeB() {
-        axios({
-            method: 'put',
-            url: '/home/sendCommand',
-            params: {
-                close: true
-            }
-        }).then((response) => {
-            
-        })
-    }
+            function control(id) {
+                axios({
+                    method: 'put',
+                    url: '/home/sendCommand',
+                    params: {
+                        blindState: id
+                    }
+                }).then((response) => {
 
-    function openB() {
-        axios({
-            method: 'put',
-            url: '/home/sendCommand',
-            params: {
-                open: true
+                })
             }
-        }).then((response) => {
-            
-        })
-    }
-</script>
+
+
+        </script>
+    </body>
+
 
