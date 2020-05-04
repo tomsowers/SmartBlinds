@@ -33,7 +33,12 @@ namespace SmartBlinds.Models
             if(serialCon.controlMode == 1)
             {
                 //time control need to also include times
-                query = "Update dbo.SmartBlinds set controlMode = " + serialCon.controlMode.ToString() + " , timecontrolopentime ='"+ serialCon.openTime+"' , timecontrolclosetime = '"+serialCon.closeTime + "' where BlindID = 1";
+                query = "Update dbo.SmartBlinds set controlMode = " + serialCon.controlMode.ToString() + " , timecontrolopentime ='"+ serialCon.openTime+"' , timecontrolclosetime = '"+serialCon.closeTime + "' , blindState = 2 where BlindID = 1";
+
+            }
+            else if(serialCon.controlMode == 0)
+            {
+                query = "Update dbo.SmartBlinds set controlMode = " + serialCon.controlMode.ToString() + ", blindState = 2 where BlindID = 1";
 
             }
             else
