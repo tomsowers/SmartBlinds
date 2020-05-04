@@ -1,59 +1,87 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="text-center">
-    <h1 class="display-4">Control Your Blinds</h1>
-    <h4>Set Your Control Method Below</h4>
-</div>
-
-<div class="row">
-    <div class="col-lg">
-
+<body onload="getControlMode()">
+    <div class="text-center">
+        <h1 class="display-4">Control Your Blinds</h1>
+        <h4>Set Your Control Method Below</h4>
+        <p id="cMode"></p>
     </div>
-    <div class="col-lg-6">
-        <div class="text-center">
 
-            <button type="button" class="btn btn-primary" onclick="manualSubmit()">Manual Control Only</button>
-            <br />
-            <br />
-            <p>Select Light Control Scheme:</p>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="dayOpen" value="option1" checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    Open During Day
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="nightOpen" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    Open During Night
-                </label>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="lightSubmit()">Light Control</button>
-            <br />
-            <br />
-            <div class="form-group row">
-                <label for="time-input-open" class="col-2 col-form-label">Open at:</label>
-                <div class="col-10">
-                    <input class="form-control" type="time" value="13:45:00" id="time-input-open">
+    <div class="row">
+        <div class="col-lg">
+
+        </div>
+        <div class="col-lg-6">
+            <div class="text-center">
+
+                <button type="button" class="btn btn-primary" onclick="manualSubmit()">Manual Control Only</button>
+                <br />
+                <br />
+                <p>Select Light Control Scheme:</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="dayOpen" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Open During Day
+                    </label>
                 </div>
-                <label for="time-input-close" class="col-2 col-form-label">Close at:</label>
-                <div class="col-10">
-                    <input class="form-control" type="time" value="13:45:00" id="time-input-close">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="nightOpen" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Open During Night
+                    </label>
                 </div>
+                <button type="button" class="btn btn-primary" onclick="lightSubmit()">Light Control</button>
+                <br />
+                <br />
+                <div class="form-group row">
+                    <label for="time-input-open" class="col-2 col-form-label">Open at:</label>
+                    <div class="col-10">
+                        <input class="form-control" type="time" value="13:45:00" id="time-input-open">
+                    </div>
+                    <label for="time-input-close" class="col-2 col-form-label">Close at:</label>
+                    <div class="col-10">
+                        <input class="form-control" type="time" value="13:45:00" id="time-input-close">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="timeSubmit()">Time Control</button>
+                <br />
+                <br />
+
             </div>
-            <button type="button" class="btn btn-primary" onclick="timeSubmit()">Time Control</button>
-            <br />
-            <br />
-            
+        </div>
+        <div class="col-lg">
+
         </div>
     </div>
-    <div class="col-lg">
+</body>
 
-    </div>
-</div>
 
 <script type="text/javascript">
+
+    function getControlMode() {
+
+        axios({
+            method: 'get',
+            url: '/home/getMode'
+
+        }).then((response) => {
+            if (response.data.controlMode == 0) {
+                document.getElementById("cMode").innerHTML = "Current Mode: Manual";
+            }
+            else if (response.data.controlMode == 1) {
+                document.getElementById("cMode").innerHTML = "Current Mode: Time Control";
+            }
+            else if (response.data.controlMode == 2) {
+                document.getElementById("cMode").innerHTML = "Current Mode: Light Control Closed at Night";
+            }
+            else if (response.data.controlMode == 3) {
+                document.getElementById("cMode").innerHTML = "Current Mode: Light Control Open at Night";
+            }
+
+        })
+    }
+
     function timeSubmit() {
         var open = document.getElementById('time-input-open').value;
         var close = document.getElementById('time-input-close').value;
@@ -67,8 +95,9 @@
                 closeTime: close
             }
         }).then((response) => {
-            
+
         })
+        location.reload();
     }
 
     function lightSubmit() {
@@ -84,12 +113,12 @@
             url: '/home/changeControl',
             params: {
                 controlMode: mode
-                
+
             }
         }).then((response) => {
-            
-        })
 
+        })
+        location.reload();
     }
 
     function manualSubmit() {
@@ -100,10 +129,11 @@
                 controlMode: 0
             }
         }).then((response) => {
-            
+
         })
+        location.reload();
     }
 
-    
+
 </script>
 

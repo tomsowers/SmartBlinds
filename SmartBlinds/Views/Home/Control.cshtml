@@ -11,7 +11,7 @@
         <br />
         <div class="row" >
 
-            <div class="col-lg-4 order-md-2 text-center">
+            <div id="Both" class="col-lg-4 order-md-2 text-center">
                 <p>Control Both Shades:</p>
 
                 <button id="oB" type="button" onclick="control(1)" class="btn btn-primary">Open</button>
@@ -19,17 +19,17 @@
                 <button id="sB" type="button" onclick="control(2)" class="btn btn-primary">Stop</button>
 
             </div>
-            <div class="col-lg-4 order-md-1 text-center">
+            <div id="Left" class="col-lg-4 order-md-1 text-center">
                 <p>Control Left Shade</p>
                 <button id="oL" type="button" onclick="control(3)" class="btn btn-primary">Open Left</button>
                 <button id="cL" type="button" onclick="control(5)" class="btn btn-primary">Close Left</button>
-                <button id="sL" type="button" onclick="control(7)" class="btn btn-primary">Stop Left</button>
+                
             </div>
-            <div class="col-lg-4 order-md-3 text-center">
+            <div id="Right" class="col-lg-4 order-md-3 text-center">
                 <p>Control Right Shade</p>
                 <button id="oR" type="button" onclick="control(4)" class="btn btn-primary">Open Right</button>
                 <button id="cR" type="button" onclick="control(6)" class="btn btn-primary">Close Right</button>
-                <button id="sR" type="button" onclick="control(8)" class="btn btn-primary">Stop Right</button>
+                
             </div>
         </div>
 
@@ -44,22 +44,20 @@
 
                 }).then((response) => {
                     if (response.data.controlMode < 2) {
+                        document.getElementById("Left").style.display = "inline";
+                        document.getElementById("Right").style.display = "inline";
                         document.getElementById("oB").style.display = "inline";
                         document.getElementById("cB").style.display = "inline";
-                        document.getElementById("oL").style.display = "inline";
-                        document.getElementById("cL").style.display = "inline";
-                        document.getElementById("oR").style.display = "inline";
-                        document.getElementById("cR").style.display = "inline";
+                        document.getElementById("Both").className = "col-lg-4 order-md-2 text-center";
                         document.getElementById("lightNote").style.display = "none";
                     }
                     else {
+                        document.getElementById("Left").style.display = "none";
+                        document.getElementById("Right").style.display = "none";
                         document.getElementById("oB").style.display = "none";
                         document.getElementById("cB").style.display = "none";
-                        document.getElementById("oL").style.display = "none";
-                        document.getElementById("cL").style.display = "none";
-                        document.getElementById("oR").style.display = "none";
-                        document.getElementById("cR").style.display = "none";
                         document.getElementById("lightNote").style.display = "inline";
+                        document.getElementById("Both").className = "col-lg-12 order-md-2 text-center";
                     }
 
                 })
