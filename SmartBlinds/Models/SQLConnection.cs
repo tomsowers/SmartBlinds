@@ -8,6 +8,9 @@ using System.Data;
 
 namespace SmartBlinds.Models
 {
+    /// <summary>
+    /// A static class used to insert data into the SQL database
+    /// </summary>
     public static class SQLConnection
     {
         public static void SendCommand(SerialCon serialCon)

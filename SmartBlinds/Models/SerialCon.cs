@@ -12,7 +12,7 @@ namespace SmartBlinds.Models
 {
     
     /// <summary>
-    /// Used to connect to propellor and transmit data
+    /// Used to recieve the JSON data and call the SQL commands 
     /// </summary>
     public class SerialCon
     {

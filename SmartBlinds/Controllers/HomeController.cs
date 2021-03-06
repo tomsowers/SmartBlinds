@@ -29,8 +29,7 @@ namespace SmartBlinds.Controllers
         [HttpPut]
         public IActionResult ChangeControl(SerialCon serial)
         {
-            //will want to sync time for every request to keep the clock updated
-            //serial.UpdateControlMode();
+            
             serial.UpdateControlMode();
             return Content("Test");
         }
@@ -39,7 +38,7 @@ namespace SmartBlinds.Controllers
         [HttpPut]
         public IActionResult sendCommand(SerialCon serial)
         {
-            //will want to sync time for every request to keep the clock updated
+            
             serial.SendCommand();
 
             return Content("Test");
